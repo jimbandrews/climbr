@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app(test_config=None):
     # create and configure the app
@@ -19,13 +19,13 @@ def create_app(test_config=None):
 
     # ensure the instance folder exists
     try:
-        os.mkdirs(app.instance_path)
+        os.mkdir(app.instance_path)
     except OSError:
         pass
 
-    # simple page
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    # homepage
+    @app.route('/')
+    def home():
+        return render_template('index.html')
     
     return app
