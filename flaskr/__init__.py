@@ -1,6 +1,7 @@
 import os
-
 from flask import Flask, render_template
+from flask_migrate import Migrate
+from .models import db
 
 def create_app(test_config=None):
     # create and configure the app
@@ -16,6 +17,12 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
+
+    # connecting flask app to PostgreSQL
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://climbr:1148@localhost:5432/climbr'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+    migrate = Migrate(app, db)
 
     # ensure the instance folder exists
     try:
