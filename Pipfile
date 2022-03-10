@@ -8,6 +8,8 @@ flask = "*"
 psycopg2-binary = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
+beautifulsoup4 = "*"
+requests = "*"
 
 [dev-packages]
 
