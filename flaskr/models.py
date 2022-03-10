@@ -64,13 +64,15 @@ class Gym(db.Model):
     city = db.Column(db.String)
     state = db.Column(db.String)
     zipcode = db.Column(db.String)
+    phone = db.Column(db.String)
 
-    def __init__(self, name, street, city, state, zipcode):
+    def __init__(self, name, street, city, state, zipcode, phone):
         self.name = name
         self.street = street
         self.city = city
         self.state = state
         self.zipcode = zipcode
+        self.phone = phone
 
     def __repr__(self):
         return f"{self.name}: {self.city}, {self.state}"
