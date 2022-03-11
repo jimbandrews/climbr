@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template
 from flask_migrate import Migrate
 from .models import db
+from . import update_gyms as update
 
 def create_app(test_config=None):
     # create and configure the app
@@ -30,9 +31,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # registering blueprints
+    app.register_blueprint(update.bp)
+
     # homepage
     @app.route('/')
     def home():
         return render_template('index.html')
-    
+
     return app
