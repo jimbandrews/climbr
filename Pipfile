@@ -10,6 +10,8 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 beautifulsoup4 = "*"
 requests = "*"
+geopy = "*"
+ipykernel = "*"
 
 [dev-packages]
 
