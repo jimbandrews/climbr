@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template
 from flask_migrate import Migrate
 from .models import db
-from . import update_gyms as update
+# from . import update_gyms as update
 
 
 def create_app(test_config=None):
@@ -35,7 +35,9 @@ def create_app(test_config=None):
         pass
 
     # registering blueprints
-    app.register_blueprint(update.bp)
+    # app.register_blueprint(update.bp)
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     # homepage
     @app.route("/")
