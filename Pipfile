@@ -12,6 +12,7 @@ beautifulsoup4 = "*"
 requests = "*"
 geopy = "*"
 ipykernel = "*"
+black = "*"
 
 [dev-packages]
 
