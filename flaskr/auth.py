@@ -22,7 +22,7 @@ def register():
         elif not password:
             error = "Password is required."
 
-        new_user = UserModel(username, email, password)
+        new_user = UserModel(username, email, generate_password_hash(password))
 
         try:
             db.session.add(new_user)
@@ -35,3 +35,30 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = UserModel.query.filter_by(username=username).first()
+        error = None
+
+        if user is None:
+            error = "Incorrect Username."
+        elif not check_password_hash(user.password, password):
+            error = "Incorrect Password"
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user.id
+            return redirect(url_for('auth.index'))
+
+        flash(error)
+
+    return render_template('auth/login.html')
+
+
+@bp.route('/index', methods=('GET',))
+def index():
+    return render_template('climbr/test.html')
