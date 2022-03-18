@@ -29,13 +29,13 @@ class BoulderGrades(Enum):
     V8 = "V8"
 
 
-class UserModel(db.Model):
+class User(db.Model):
     __tablename__ = "user_table"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String)
+    password = db.Column(db.String, nullable=False)
     boulder_max_grade = db.Column(db.String, nullable=True)
     boulder_reg_grade = db.Column(db.String, nullable=True)
     top_max_grade = db.Column(db.String, nullable=True)

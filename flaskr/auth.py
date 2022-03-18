@@ -3,7 +3,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from .models import db, UserModel
+from .models import db, User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -22,7 +22,7 @@ def register():
         elif not password:
             error = "Password is required."
 
-        new_user = UserModel(username, email, generate_password_hash(password))
+        new_user = User(username, email, generate_password_hash(password))
 
         try:
             db.session.add(new_user)
@@ -41,7 +41,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = UserModel.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
         error = None
 
         if user is None:
