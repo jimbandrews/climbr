@@ -59,6 +59,12 @@ def login():
     return render_template('auth/login.html')
 
 
+@bp.route('/logout', methods=('GET', 'POST'))
+def logout():
+    session.clear()
+    return redirect(url_for('auth.index'))
+
+
 @bp.route('/index', methods=('GET',))
 def index():
     return render_template('climbr/test.html')
