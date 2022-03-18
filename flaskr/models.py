@@ -33,18 +33,21 @@ class UserModel(db.Model):
     __tablename__ = "user_table"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    email = db.Column(db.String)
+    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
-    boulder_max_grade = db.Column(db.String)
-    boulder_reg_grade = db.Column(db.String)
-    top_max_grade = db.Column(db.String)
-    top_reg_grade = db.Column(db.String)
-    lead_max_grade = db.Column(db.String)
-    lead_reg_grade = db.Column(db.String)
-    bio = db.Column(db.Text)
-    city = db.Column(db.String)
-    state = db.Column(db.String)
+    boulder_max_grade = db.Column(db.String, nullable=True)
+    boulder_reg_grade = db.Column(db.String, nullable=True)
+    top_max_grade = db.Column(db.String, nullable=True)
+    top_reg_grade = db.Column(db.String, nullable=True)
+    lead_max_grade = db.Column(db.String, nullable=True)
+    lead_reg_grade = db.Column(db.String, nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    city = db.Column(db.String, nullable=True)
+    state = db.Column(db.String, nullable=True)
+
+    matches = db.relationship('Match', backref='climber1', lazy=True)
+    swipes = db.relationship('Match', backref='climber2', lazy=True)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -76,3 +79,12 @@ class Gym(db.Model):
 
     def __repr__(self):
         return f"{self.name}: {self.city}, {self.state}"
+
+
+class Match(db.Model):
+    __tablename__ = "match_table"
+
+    id = db.Column(db.Integer, primary_key=True)
+    swiper = db.Column(db.Integer, db.ForeignKey('climber1.id'), nullable=False)
+    swipee = db.Column(db.Integer, db.ForeignKey('climber2.id'), nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False, unique=False)
