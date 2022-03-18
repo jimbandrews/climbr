@@ -46,8 +46,8 @@ class UserModel(db.Model):
     city = db.Column(db.String, nullable=True)
     state = db.Column(db.String, nullable=True)
 
-    matches = db.relationship('Match', backref='climber1', lazy=True)
-    swipes = db.relationship('Match', backref='climber2', lazy=True)
+    # matches = db.relationship('Match', backref='climber', lazy=True)
+    # swipes = db.relationship('Match', backref='climber', lazy=True)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -81,10 +81,10 @@ class Gym(db.Model):
         return f"{self.name}: {self.city}, {self.state}"
 
 
-class Match(db.Model):
-    __tablename__ = "match_table"
+# class Match(db.Model):
+#     __tablename__ = "match_table"
 
-    id = db.Column(db.Integer, primary_key=True)
-    swiper = db.Column(db.Integer, db.ForeignKey('climber1.id'), nullable=False)
-    swipee = db.Column(db.Integer, db.ForeignKey('climber2.id'), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=False, unique=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     swiper = db.Column(db.Integer, db.ForeignKey('climber.id'), nullable=False)
+#     swipee = db.Column(db.Integer, db.ForeignKey('climber.id'), nullable=False)
+#     datetime = db.Column(db.DateTime, nullable=False, unique=False)
